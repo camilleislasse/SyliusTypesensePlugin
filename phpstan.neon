@@ -1,0 +1,11 @@
+parameters:
+    level: 8
+    paths:
+        - src/
+
+    excludePaths:
+        # Makes PHPStan crash
+        - 'src/DependencyInjection/SyliusTypesense.php'
+
+        # Test dependencies
+        - 'tests/Application/**/*'

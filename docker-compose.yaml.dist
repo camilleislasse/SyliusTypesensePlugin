@@ -1,0 +1,28 @@
+services:
+    database:
+        image: mysql:8.0
+        command: --default-authentication-plugin=mysql_native_password
+        ports:
+            - 3306
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 1
+          MYSQL_DATABASE: sylius
+        volumes:
+            - database:/var/lib/mysql
+
+    mailer:
+        image: monsieurbiz/mailcatcher
+        ports:
+            - 1025
+            - 1080
+    typesense:
+        image: typesense/typesense:27.1
+        restart: on-failure
+        ports:
+          - "8108:8108"
+        volumes:
+          - ./typesense-data:/data
+        command: '--data-dir /data --api-key=xyz --enable-cors'
+
+volumes:
+    database: {}

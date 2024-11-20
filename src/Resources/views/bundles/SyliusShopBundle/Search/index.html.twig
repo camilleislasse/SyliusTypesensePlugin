@@ -1,0 +1,85 @@
+{% extends '@SyliusShop/layout.html.twig' %}
+
+{% block content %}
+    <h1 class="ui header section dividing header">
+        {{ 'sylius.ui.search'|trans }}
+    </h1>
+
+    <div class="ui container">
+        <div class="ui raised segment">
+            {{ form_start(form, {'method': 'get', 'attr': {'class': 'ui loadable form', 'id': 'searchForm'}}) }}
+            <div class="ui stackable grid" id="searchbar">
+                <div class="twelve wide column" id="searchbarTextField">
+                    <div class="field">
+                        {{ form_widget(form.value, {'attr': {'placeholder': 'sylius.ui.search_placeholder'|trans, 'id': 'searchInput', 'class': 'ui input'}}) }}
+                    </div>
+                </div>
+                <div class="four wide right aligned column" id="searchbarButtons">
+                    <button type="submit" class="ui primary labeled icon button">
+                        <i class="search icon"></i> {{ 'sylius.ui.search'|trans }}
+                    </button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+        <div id="products">
+            {% if totalResults >0 %}
+                <div class="ui horizontal divider">{{ 'sylius.ui.results'|trans }}</div>
+            {% endif %}
+            <p class="ui text-muted">{{ totalResults }} {{ 'sylius.ui.results_found'|trans }}</p>
+
+            <div class="ui three stackable cards">
+                {% for product in products %}
+                    {% include '@SyliusShop/Product/_box.html.twig' with {'product': product} %}
+                {% endfor %}
+            </div>
+
+            {% if totalPages > 1 %}
+                <div class="ui pagination menu centered">
+                    {% if currentPage > 1 %}
+                        <a class="item" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': currentPage - 1})) }}">
+                            <i class="angle left icon"></i> {{ 'sylius.ui.previous'|trans }}
+                        </a>
+                    {% endif %}
+
+                    {% for i in 1..totalPages %}
+                        <a class="item {{ i == currentPage ? 'active teal' : '' }}" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': i})) }}">
+                            {{ i }}
+                        </a>
+                    {% endfor %}
+
+                    {% if currentPage < totalPages %}
+                        <a class="item" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': currentPage + 1})) }}">
+                            {{ 'sylius.ui.next'|trans }} <i class="angle right icon"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('product_search_value').addEventListener('input', function (event) {
+            const query = event.target.value;
+
+            if (query.length >= 2) {
+                fetch(`/{{ sylius_base_locale }}/search/autocomplete?q=${query}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.text();
+                    })
+                    .then(htmlContent => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(htmlContent, 'text/html');
+                        document.getElementById('products').innerHTML = doc.querySelector('#products').innerHTML;
+                    })
+                    .catch(error => {
+                        console.error('Error during fetch operation:', error);
+                    });
+            }
+        });
+    </script>
+{% endblock %}

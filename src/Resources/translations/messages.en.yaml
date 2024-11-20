@@ -1,0 +1,12 @@
+sylius:
+    ui:
+        value: "Enter search value"
+        search: "Search"
+        clear: "Clear"
+        no_products_found: "No products found."
+        search_placeholder: 'Search for products'
+        results: 'Results'
+        results_found: 'results found'
+        previous: 'Previous'
+        next: 'Next'
+        search_error: 'An error occurred during the search. Please try again.'

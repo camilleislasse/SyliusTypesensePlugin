@@ -1,0 +1,6 @@
+suites:
+    main:
+        namespace: ACSEO\SyliusTypesense
+        psr4_prefix: ACSEO\SyliusTypesense
+        src_path: src
+        spec_path: tests

@@ -1,0 +1,28 @@
+imports:
+    - { resource: packages/*.yaml }
+
+parameters:
+    locale: fr_FR
+    product_search_limit: '%env(PRODUCT_SEARCH_LIMIT)%'
+    
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $limit: '%product_search_limit%'
+
+    ACSEO\SyliusTypesense\:
+        resource: '../../*'
+        exclude: '../../{Entity}'
+    
+    ACSEO\SyliusTypesense\Manager\ProductSearchManager:
+        arguments:
+            - '@typesense.finder.products'
+    
+    ACSEO\SyliusTypesense\Resolver\TypesenseResourcesResolver:
+        arguments:
+            - '@sylius.resource_controller.resources_resolver.grid_aware.inner'
+            - '@sylius.grid.provider'
+            - '@typesense.collection_manager'

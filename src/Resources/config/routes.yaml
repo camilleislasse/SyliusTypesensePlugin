@@ -1,0 +1,13 @@
+sylius_product_search:
+    path: /{_locale}/search
+    controller: ACSEO\SyliusTypesense\Controller\SearchController
+    methods: [GET, POST]
+    requirements:
+        _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
+    
+sylius_product_search_autocomplete:
+    path: /{_locale}/search/autocomplete
+    controller: ACSEO\SyliusTypesense\Controller\SearchController
+    methods: [GET]
+    requirements:
+        _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
