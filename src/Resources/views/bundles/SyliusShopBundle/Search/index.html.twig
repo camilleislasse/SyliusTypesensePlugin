@@ -64,7 +64,7 @@
             const query = event.target.value;
 
             if (query.length >= 2) {
-                fetch(`/{{ sylius_base_locale }}/search/autocomplete?q=${query}`)
+                fetch(`/{{ app.locale }}/search/autocomplete?q=${query}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error(`HTTP error! Status: ${response.status}`);

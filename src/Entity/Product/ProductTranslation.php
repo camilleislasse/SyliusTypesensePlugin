@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace ACSEO\SyliusTypesense\Entity\Product;
 
-use Sylius\Component\Core\Model\ProductTranslation as BaseProductTranslation;
+use Sylius\Component\Product\Model\ProductTranslation as BaseProductTranslation;
 
 class ProductTranslation extends BaseProductTranslation
 {

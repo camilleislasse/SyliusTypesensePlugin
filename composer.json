@@ -2,12 +2,13 @@
     "name": "acseo/sylius-typesense",
     "type": "sylius-plugin",
     "keywords": ["sylius", "sylius-plugin"],
-    "description": "Tes",
+    "description": "Sylius Typesense is a plugin for integrating Typesense, a fast and powerful search engine, with Sylius, an open-source e-commerce platform. This plugin boosts your Sylius store’s search capabilities by leveraging Typesense’s advanced search features, providing fast, relevant search results.",
     "license": "MIT",
     "require": {
         "php": "^8.2",
         "sylius/sylius": ">=1.12 <1.14",
-        "acseo/typesense-bundle": "^0.8.0"
+        "acseo/typesense-bundle": "^0.8.0",
+        "pagerfanta/pagerfanta": "^3.8"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.16",
