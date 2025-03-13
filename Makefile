@@ -77,9 +77,10 @@ setup_application:
 	$(MAKE) ${APP_DIR}/php.ini
 	(cd ${APP_DIR} && ${COMPOSER} install --no-interaction)
 	$(MAKE) apply_dist
-	(cd ${APP_DIR} && ${COMPOSER} require --no-progress acseo/sylius-typesense="*@dev")
+	# broken recipe
+	(cd ${APP_DIR} && ${COMPOSER} require --no-progress --no-scripts acseo/sylius-typesense="*@dev")
 	rm -rf ${APP_DIR}/var/cache
-
+	(cd ${APP_DIR}/config/packages && sed -i '' '/acseo_typesense:/,/collections: null/d' acseo_typesense.yaml)
 
 ${APP_DIR}/docker-compose.yaml:
 	rm -f ${APP_DIR}/docker-compose.yml
