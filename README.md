@@ -14,7 +14,6 @@ Sylius Typesense
         <img src="https://img.shields.io/packagist/v/acseo/sylius-typesense.svg" />
     </a>
 </h1>
-
 <img src="capture.gif">
 <p></p>
 
