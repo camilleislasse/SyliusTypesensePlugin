@@ -66,8 +66,6 @@ yarn-error.log
 
 # Ignore development container configuration
 .devcontainer/
-# Ignore GitHub workflows
-.github/
 
 # Ignore distribution folder and related files
 /dist/
